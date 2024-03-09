@@ -6,26 +6,10 @@ import {
 } from "../utils/types";
 
 import {
-  client,
-  modbusConnect,
   writeClient,
   readClient,
 } from "../utils/modbus_tcp_test";
 class Controller {
-  async ReadHoldingRegisters(ctx: Koa.Context) {
-    const { clientId = 1, dataAddress, length } = ctx.query;
-    if (!dataAddress || !length) {
-      ctx.throw(400, "无效的操作地址和长度");
-    }
-    const clientId_parsed = Number(clientId);
-    const dataAddress_parsed = Number(dataAddress);
-    const length_parsed = Number(length);
-    client.setID(clientId_parsed);
-    const data = (
-      await client.readHoldingRegisters(dataAddress_parsed, length_parsed)
-    ).data;
-    ctx.body = data;
-  }
 
   async Read(ctx: Koa.Context) {
     // 请求参数验证

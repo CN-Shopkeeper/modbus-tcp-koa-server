@@ -7,9 +7,7 @@ import routing from "./routes";
 import { port } from "./config";
 const koaParameter = require("koa-parameter");
 
-// import { client, mqttSubscribe } from "./utils/mqtt-test";
-import { client, modbusConnect } from "./utils/modbus_tcp_test";
-
+import { modbusConnect } from "./utils/modbus_tcp_test";
 
 const app = new Koa();
 
