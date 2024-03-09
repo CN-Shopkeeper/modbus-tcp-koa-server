@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>播放《春日影》！</title>
+</head>
+
+<body>
+  <div>
+    <button onclick="requestData()">《春日影》！启动！</button>
+    <div id="info"></div>
+  </div>
+  <script src="./haruhikage_notations.js"></script>
+
+  <img src="./haruhikage_1.avif" alt="haruhikage">
+  <img src="./haruhikage_2.avif" alt="haruhikage">
+  <!-- JavaScript 代码 -->
+  <script  >
+    // import {notations} from "./haruhikage_notations.js"
+    console.log(notations)
+    // 获取输出元素
+    var outputElement = document.getElementById("info");
+    async function requestData() {
+      let index = 0
+      for (const notation of notations) {
+        await fetch('http://localhost:6690/modbus_tcp_test/write', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "data": [
+              {
+                "clientId": 1,
+                "writeInfo": [
+                  {
+                    "dataAddress": 0,
+                    "type": "Register",
+                    "value": [index, notation.note, notation.duration]
+                  },
+                ]
+              }
+            ]
+          })
+        })
+        outputElement.innerHTML = "";
+        var paragraph = document.createElement("p");
+        // 设置段落内容为数组中的元素
+        paragraph.textContent = `post parameters:\nindex: ${index}, note: ${notation.note}, duration: ${notation.duration}`;
+        // 将段落元素添加到输出元素中
+        outputElement.appendChild(paragraph);
+        await new Promise(resolve => setTimeout(resolve, notation.duration));
+        index++
+      }
+
+    }
+  </script>
+</body>
+
+</html>
