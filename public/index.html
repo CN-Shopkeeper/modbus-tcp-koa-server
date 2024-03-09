@@ -25,6 +25,7 @@
     async function loopRequestPlay() {
       let index = 0
       for (const notation of notations) {
+        // todo 使用 Promise.all()
         await fetch('http://localhost:6690/modbus_tcp_test/write', {
           method: 'POST',
           headers: {
@@ -54,7 +55,6 @@
         await new Promise(resolve => setTimeout(resolve, notation.duration));
         index++
       }
-
     }
   </script>
 </body>

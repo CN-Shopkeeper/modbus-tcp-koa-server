@@ -36,18 +36,18 @@ class Controller {
 
     const { data } = ctx.request.body;
 
-    // const readResults: IReadResultItem[] = await Promise.all(
-    //   (data as any[]).map((item) => {
-    //     return readClient(item.clientId, item.readInfo);
-    //   })
-    // );
+    const readResults: IReadResultItem[] = await Promise.all(
+      (data as any[]).map((item) => {
+        return readClient(item.clientId, item.readInfo);
+      })
+    );
 
     // 结果数组
-    const readResults: IReadResultItem[] = [];
-    for (const item of data) {
-      // 遍历每一个读取请求并处理
-      readResults.push(await readClient(item.clientId, item.readInfo));
-    }
+    // const readResults: IReadResultItem[] = [];
+    // for (const item of data) {
+    //   // 遍历每一个读取请求并处理
+    //   readResults.push(await readClient(item.clientId, item.readInfo));
+    // }
 
     ctx.body = readResults;
   }
