@@ -9,7 +9,7 @@
 
 <body>
   <div>
-    <button onclick="requestData()">《春日影》！启动！</button>
+    <button onclick="loopRequestPlay()">《春日影》！启动！</button>
     <div id="info"></div>
   </div>
   <script src="./haruhikage_notations.js"></script>
@@ -22,7 +22,7 @@
     console.log(notations)
     // 获取输出元素
     var outputElement = document.getElementById("info");
-    async function requestData() {
+    async function loopRequestPlay() {
       let index = 0
       for (const notation of notations) {
         await fetch('http://localhost:6690/modbus_tcp_test/write', {

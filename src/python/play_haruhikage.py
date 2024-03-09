@@ -1,7 +1,6 @@
 from pymodbus.client.tcp import ModbusTcpClient
 import winsound
 import threading
-import time
 
 # 初始化Modbus TCP客户端
 client = ModbusTcpClient('127.0.0.1', port=502)
